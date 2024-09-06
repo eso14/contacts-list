@@ -53,6 +53,10 @@ class ToDoListItem extends StatelessWidget {
         backgroundColor: _getColor(context),
         child: Text(item.abbrev()),
       ),
+      title: Text(
+        item.name,
+        style: _getTextStyle(context),
+      ),
     );
   }
 }
