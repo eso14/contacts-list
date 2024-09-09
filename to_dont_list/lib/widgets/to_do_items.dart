@@ -4,6 +4,9 @@ import 'package:to_dont_list/objects/item.dart';
 typedef ToDoListChangedCallback = Function(Item item, bool completed);
 typedef ToDoListRemovedCallback = Function(Item item);
 
+
+// can use "stl" to start a stateless/stateful widget
+
 class ToDoListItem extends StatelessWidget {
   ToDoListItem(
       {required this.item,

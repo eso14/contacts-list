@@ -7,6 +7,10 @@ import 'package:to_dont_list/widgets/to_do_dialog.dart';
 class ToDoList extends StatefulWidget {
   const ToDoList({super.key});
 
+// if I want to talk to anything in the state (i.e. extends state)
+// use widgit._______ like if I set count here, to accses it in other classes that extend state
+// I can do widgit.count
+
   @override
   State createState() => _ToDoListState();
 }
