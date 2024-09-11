@@ -6,8 +6,6 @@ class Sheep{
     {required this.name,
     required this.grade,
     required this.age,
-    required this.parent1,
-    required this.parent2,
     required this.children}
 
   );
@@ -18,10 +16,6 @@ final String name;
 final String grade;
 
 final int age;
-
-final Sheep parent1;
-
-final Sheep parent2;
 
 List<Sheep> children;
 
@@ -46,5 +40,7 @@ List getChildren() {
 void addChild(Sheep child) {
   children.add(child);
 }
+
+
 
 }

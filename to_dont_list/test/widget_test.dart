@@ -8,7 +8,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+
 import 'package:to_dont_list/main.dart';
+import 'package:to_dont_list/objects/Sheep.dart';
 import 'package:to_dont_list/objects/item.dart';
 import 'package:to_dont_list/widgets/to_do_items.dart';
 
@@ -87,4 +89,27 @@ void main() {
   });
 
   // One to test the tap and press actions on the items?
+
+  test("Sheep should return info and children", () {
+      Sheep sheep1 = Sheep(name: "John", 
+      grade: "A2", 
+      age: 3, children: []);
+
+      // name
+      expect(sheep1.name, "John");
+      // grade
+      expect(sheep1.grade, "A2");
+      // age
+      expect(sheep1.age, 3);
+      // children, none
+      expect(sheep1.children, []);
+
+      // adding child to sheep1
+      Sheep baby = Sheep(name: "baby", 
+      grade: "A3", 
+      age: 0, children: []);
+      sheep1.addChild(baby);
+      expect(sheep1.children, [baby]);
+  
+  });
 }
