@@ -90,11 +90,10 @@ void main() {
 
   // One to test the tap and press actions on the items?
 
-  test("Sheep should return info and children", () {
-      Sheep sheep1 = Sheep(name: "John", 
+Sheep sheep1 = Sheep(name: "John", 
       grade: "A2", 
       age: 3, children: []);
-
+  test("Sheep should return info", () {
       // name
       expect(sheep1.name, "John");
       // grade
@@ -103,13 +102,16 @@ void main() {
       expect(sheep1.age, 3);
       // children, none
       expect(sheep1.children, []);
+  
+  });
 
-      // adding child to sheep1
+  test("Sheep should show children if present", () {
+    // adding child to sheep1
+      // split test
       Sheep baby = Sheep(name: "baby", 
       grade: "A3", 
       age: 0, children: []);
       sheep1.addChild(baby);
       expect(sheep1.children, [baby]);
-  
   });
 }
