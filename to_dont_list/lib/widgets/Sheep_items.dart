@@ -54,12 +54,11 @@ class SheepItems extends StatelessWidget {
         backgroundColor: _getColor(context),
         child: Text(sheep.name),
       ),
-      title: Text(
-        sheep.name,
-        style: _getTextStyle(context),
-      ),
-      trailing: Row(
-        children: <Text>[Text(sheep.grade), Text(sheep.age.toString())],
+      title: Row ( children: [
+        Text(sheep.name, style: _getTextStyle(context)), 
+        SizedBox.fromSize(size: const Size(3, 3),),
+         Text(sheep.grade),  
+         Text(sheep.age.toString())],
       ),
     );
   }
