@@ -30,6 +30,27 @@ class _SheepListState extends State<SheepList> {
     filteredSheep = sheeps;
   }
 
+  void _filterSheep(String search) {
+    List<Sheep> results = [];
+    if (search.isEmpty) {
+      // saying that if seach isn't typed in, then leave list as is
+      results = sheeps;
+    } else {
+      results = sheeps.where((sheep) {
+        if (searchCriteria == 'name') {
+          return sheep.name.toLowerCase().contains(search.toLowerCase());
+        } else if (searchCriteria == 'grade') {
+          return sheep.grade.toLowerCase().contains(search.toLowerCase());
+        } else if (searchCriteria == 'age') {
+          return sheep.age.toLowerCase().contains(search.toLowerCase());
+        }
+        return false;
+      }).toList();
+    }
+  }
+
+
+
   void _handleListChanged(Sheep sheep, bool completed) {
     setState(() {
       // When a user changes what's in the list, you need
