@@ -85,6 +85,8 @@ class _ToDoDialogState extends State<ToDoDialog> {
               ),
             ],
           ),
+          Text("Grade is the level of quality of the wool (A2, B1, C5)",
+          style: TextStyle(color: Colors.black.withOpacity(.5)))
         ],
       ),
       actions: <Widget>[
