@@ -152,7 +152,8 @@ Sheep sheep1 = Sheep(name: "John",
     await tester.tap(find.byKey(const Key("OKButton")));
     await tester.pump();
     expect(find.text("Jack"), findsOneWidget);
-    expect(find.text("B6"), findsOneWidget);
+    // the reason we look for two is because of the grade in the icon, theres two things of B6
+    expect(find.text("B6"), findsExactly(2));
     expect(find.text("4"), findsOneWidget);
 
     final listItemFinder = find.byType(SheepItems);
