@@ -58,8 +58,8 @@ class SheepItems extends StatelessWidget {
         child: Text(sheep.grade),
       ),
       title: Row ( children: [const Text("Name:"), space4, Text(sheep.name), space8, 
-      const Text('Grade:'), space4, Text(sheep.grade), space8, const 
-      Text("Age:"), space4, Text(sheep.age)],
+      const Text('Grade:'), space4, Text(sheep.grade), space8, 
+      const Text("Age:"), space4, Text(sheep.age), space8,]
       ),
     );
   }

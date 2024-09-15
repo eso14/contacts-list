@@ -18,6 +18,17 @@ class SheepList extends StatefulWidget {
 class _SheepListState extends State<SheepList> {
   final List<Sheep> sheeps = [Sheep(name: "John", grade: "A2", age: "3", children: [] )];
   final _sheepSet = <Sheep>{};
+  List<Sheep> filteredSheep = [];
+  // for searching stuff
+  String searchQuery = '';
+  String searchCriteria = 'name';
+
+
+  @override
+  void initState() {
+    super.initState();
+    filteredSheep = sheeps;
+  }
 
   void _handleListChanged(Sheep sheep, bool completed) {
     setState(() {
@@ -62,7 +73,7 @@ class _SheepListState extends State<SheepList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Sheep Repository'),
+          title: const Text("Sheep Reposity")
         ),
         body: ListView(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -75,15 +86,17 @@ class _SheepListState extends State<SheepList> {
             );
           }).toList(),
         ),
-        floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (_) {
-                    return ToDoDialog(onListAdded: _handleNewItem);
-                  });
-            }));
+
+          floatingActionButton: FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (_) {
+                      return ToDoDialog(onListAdded: _handleNewItem);
+                    });
+              })
+    );
   }
 }
 
