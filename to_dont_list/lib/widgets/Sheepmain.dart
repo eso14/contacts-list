@@ -33,7 +33,6 @@ class _SheepListState extends State<SheepList> {
   void _filterSheep(String search) {
     List<Sheep> results = [];
     if (search.isEmpty) {
-      // saying that if seach isn't typed in, then leave list as is
       results = sheeps;
     } else {
       results = sheeps.where((sheep) {
@@ -47,12 +46,11 @@ class _SheepListState extends State<SheepList> {
         return false;
       }).toList();
     }
-    // need to have a set state to actually change outside values
-    setState() {
-    searchQuery = search;
-    filteredSheep = results;
-  }
 
+    setState(() {
+      searchQuery = search;
+      filteredSheep = results;
+    });
   }
 
 
