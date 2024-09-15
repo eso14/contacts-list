@@ -47,6 +47,12 @@ class _SheepListState extends State<SheepList> {
         return false;
       }).toList();
     }
+    // need to have a set state to actually change outside values
+    setState() {
+    searchQuery = search;
+    filteredSheep = results;
+  }
+
   }
 
 
