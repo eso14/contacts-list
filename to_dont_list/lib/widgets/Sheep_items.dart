@@ -52,13 +52,12 @@ class SheepItems extends StatelessWidget {
           : null,
       leading: CircleAvatar(
         backgroundColor: _getColor(context),
-        child: Text(sheep.name),
+        child: Text(sheep.grade),
       ),
       title: Row ( children: [
         Text(sheep.name, style: _getTextStyle(context)), 
-        SizedBox.fromSize(size: const Size(3, 3),),
-         Text(sheep.grade),  
-         Text(sheep.age.toString())],
+        SizedBox.fromSize(size: const Size(3, 3),),  
+         Text(sheep.age)],
       ),
     );
   }

@@ -15,13 +15,13 @@ final String name;
 
 final String grade;
 
-final int age;
+final String age;
 
 List<Sheep> children;
 
 // methods
 
-int getAge() {
+String getAge() {
   return age;
 }
 

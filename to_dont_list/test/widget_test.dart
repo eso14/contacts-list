@@ -92,15 +92,15 @@ void main() {
 
 Sheep sheep1 = Sheep(name: "John", 
       grade: "A2", 
-      age: 3, children: []);
-      
+      age: "3", children: []);
+
   test("Sheep should return info", () {
       // name
       expect(sheep1.name, "John");
       // grade
       expect(sheep1.grade, "A2");
       // age
-      expect(sheep1.age, 3);
+      expect(sheep1.age, "3");
       // children, none
       expect(sheep1.children, []);
   
@@ -111,7 +111,7 @@ Sheep sheep1 = Sheep(name: "John",
       // split test
       Sheep baby = Sheep(name: "baby", 
       grade: "A3", 
-      age: 0, children: []);
+      age: "0", children: []);
       sheep1.addChild(baby);
       expect(sheep1.children, [baby]);
   });
