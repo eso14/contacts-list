@@ -26,15 +26,18 @@ class SheepItems extends StatelessWidget {
     // The BuildContext indicates where the build is
     // taking place and therefore which theme to use.
 
-    if (!remove) {
+    if (remove) {
       return Colors.black54;
     } else {
       return Theme.of(context).primaryColor;
     }
   }
 
+  final space4 = SizedBox.fromSize(size: const Size(4, 4));
+  final space8 = SizedBox.fromSize(size: const Size(8, 8));
+
   TextStyle? _getTextStyle(BuildContext context) {
-    if (remove) return null;
+    if (!remove) return null;
 
     return const TextStyle(
       color: Colors.black54,
@@ -54,10 +57,9 @@ class SheepItems extends StatelessWidget {
         backgroundColor: _getColor(context),
         child: Text(sheep.grade),
       ),
-      title: Row ( children: [
-        Text(sheep.name, style: _getTextStyle(context)), 
-        SizedBox.fromSize(size: const Size(3, 3),),  
-         Text(sheep.age)],
+      title: Row ( children: [const Text("Name:"), space4, Text(sheep.name), space8, 
+      const Text('Grade:'), space4, Text(sheep.grade), space8, const 
+      Text("Age:"), space4, Text(sheep.age)],
       ),
     );
   }

@@ -1,23 +1,21 @@
 // Started with https://docs.flutter.dev/development/ui/widgets-intro
 import 'package:flutter/material.dart';
-import 'package:to_dont_list/objects/item.dart';
 import 'package:to_dont_list/objects/Sheep.dart';
 import 'package:to_dont_list/widgets/Sheep_items.dart';
-import 'package:to_dont_list/widgets/to_do_items.dart';
 import 'package:to_dont_list/widgets/to_do_dialog.dart';
 
-class ToDoList extends StatefulWidget {
-  const ToDoList({super.key});
+class SheepList extends StatefulWidget {
+  const SheepList({super.key});
 
 // if I want to talk to anything in the state (i.e. extends state)
 // use widgit._______ like if I set count here, to accses it in other classes that extend state
 // I can do widgit.count
 
   @override
-  State createState() => _ToDoListState();
+  State createState() => _SheepListState();
 }
 
-class _ToDoListState extends State<ToDoList> {
+class _SheepListState extends State<SheepList> {
   final List<Sheep> sheeps = [Sheep(name: "John", grade: "A2", age: "3", children: [] )];
   final _sheepSet = <Sheep>{};
 
@@ -49,12 +47,14 @@ class _ToDoListState extends State<ToDoList> {
     });
   }
 
-  void _handleNewItem(String sheepText, String gradeText, String age, List<Sheep> children, TextEditingController textController) {
+  void _handleNewItem(String sheepText, TextEditingController nameController, String gradeText, TextEditingController gradeController, String age, TextEditingController ageController) {
     setState(() {
       print("Adding new item");
-      Sheep sheep = Sheep(name: sheepText, grade: gradeText, age: age, children: children);
+      Sheep sheep = Sheep(name: sheepText, grade: gradeText, age: age, children: []);
       sheeps.insert(0, sheep);
-      textController.clear();
+      nameController.clear();
+      gradeController.clear();
+      ageController.clear();
     });
   }
 
@@ -89,7 +89,7 @@ class _ToDoListState extends State<ToDoList> {
 
 void main() {
   runApp(const MaterialApp(
-    title: 'To Do List',
-    home: ToDoList(),
+    title: 'Sheep Repository',
+    home: SheepList(),
   ));
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 typedef ToDoListAddedCallback = Function(
-    String value, TextEditingController nameController,
-    String gradeValue, TextEditingController gradeController,
-    String ageValue, TextEditingController ageController);
+  String nameValue, TextEditingController nameController,
+  String gradeValue, TextEditingController gradeController,
+  String ageValue, TextEditingController ageController);
 
 class ToDoDialog extends StatefulWidget {
   const ToDoDialog({
@@ -18,20 +18,25 @@ class ToDoDialog extends StatefulWidget {
 }
 
 class _ToDoDialogState extends State<ToDoDialog> {
-  // Dialog with text from https://www.appsdeveloperblog.com/alert-dialog-with-a-text-field-in-flutter/
-  final TextEditingController _nameinputController = TextEditingController();
-  final TextEditingController _gradeinputController = TextEditingController();
-  final TextEditingController _ageinputController = TextEditingController();
+  // Have to make controller for each text box
+  // also cleaned the spacing a bit
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _gradeController = TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
+
   final ButtonStyle yesStyle = ElevatedButton.styleFrom(
-      textStyle: const TextStyle(fontSize: 20), backgroundColor: Colors.green);
-  final ButtonStyle noStyle = ElevatedButton.styleFrom(
-      textStyle: const TextStyle(fontSize: 20), backgroundColor: Colors.red);
-
-  String valueText = "";
+    textStyle: const TextStyle(fontSize: 20),
+    backgroundColor: Colors.green,
+  );
   
-  String gradeText = "";
+  final ButtonStyle noStyle = ElevatedButton.styleFrom(
+    textStyle: const TextStyle(fontSize: 20),
+    backgroundColor: Colors.red,
+  );
 
-  String ageText = "";
+  String nameValue = "";
+  String gradeValue = "";
+  String ageValue = "";
 
   @override
   Widget build(BuildContext context) {
@@ -39,48 +44,60 @@ class _ToDoDialogState extends State<ToDoDialog> {
       title: const Text('Add Sheep'),
       content: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [TextField(
-        onChanged: (value) {
-          setState(() {
-            valueText = value;
-          });
-        },
-        controller: _nameinputController,
-        decoration: const InputDecoration(hintText: "Name"),
+        children: [
+          TextField(
+            // used in test
+            key: const Key("nameField"),
+            onChanged: (value) {
+              setState(() {
+                nameValue = value;
+              });
+            },
+            controller: _nameController,
+            decoration: const InputDecoration(hintText: "Enter name here"),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  key: const Key("gradeField"),
+                  onChanged: (value) {
+                    setState(() {
+                      gradeValue = value.toUpperCase();
+                    });
+                  },
+                  controller: _gradeController,
+                  decoration: const InputDecoration(hintText: "Enter grade here"),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: TextField(
+                  key: const Key("ageField"),
+                  onChanged: (value) {
+                    setState(() {
+                      ageValue = value;
+                    });
+                  },
+                  controller: _ageController,
+                  decoration: const InputDecoration(hintText: "Enter age here"),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
-      Row(children: [TextField(
-        onChanged: (gradeValue) {
-          setState(() {
-            gradeText = gradeValue.toUpperCase();
-          });
-        },
-        controller: _gradeinputController,
-        decoration: const InputDecoration(hintText: "Grade"),
-        ),
-        TextField(
-          onChanged: (ageValue) {
-            setState(() {
-              ageText = ageValue;
-            });
-          },
-        controller: _ageinputController,
-        decoration: const InputDecoration(hintText: "Age"),
-        )],)]),
       actions: <Widget>[
         ElevatedButton(
           key: const Key("Cancle"),
           style: noStyle,
-          child: const Text('cancle'),
+          child: const Text('cancel'),
           onPressed: () {
-            setState(() {
-              Navigator.pop(context);
-            });
+            Navigator.pop(context);
           },
         ),
-
-        // https://stackoverflow.com/questions/52468987/how-to-turn-disabled-button-into-enabled-button-depending-on-conditions
         ValueListenableBuilder<TextEditingValue>(
-          valueListenable: _nameinputController,
+          valueListenable: _nameController,
           builder: (context, value, child) {
             return ElevatedButton(
               key: const Key("OKButton"),
@@ -88,7 +105,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
               onPressed: value.text.isNotEmpty
                   ? () {
                       setState(() {
-                        widget.onListAdded(valueText, _nameinputController, gradeText, _gradeinputController, ageText, _ageinputController);
+                        widget.onListAdded(nameValue, _nameController, gradeValue, _gradeController, ageValue, _ageController);
                         Navigator.pop(context);
                       });
                     }

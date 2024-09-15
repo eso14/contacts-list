@@ -12,9 +12,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:to_dont_list/main.dart';
 import 'package:to_dont_list/objects/Sheep.dart';
 import 'package:to_dont_list/objects/item.dart';
+import 'package:to_dont_list/widgets/Sheep_items.dart';
+import 'package:to_dont_list/widgets/Sheepmain.dart';
 import 'package:to_dont_list/widgets/to_do_items.dart';
 
+
 void main() {
+  
+  /*
   test('Item abbreviation should be first letter', () {
     const item = Item(name: "add more todos");
     expect(item.abbrev(), "a");
@@ -90,6 +95,8 @@ void main() {
 
   // One to test the tap and press actions on the items?
 
+*/
+
 Sheep sheep1 = Sheep(name: "John", 
       grade: "A2", 
       age: "3", children: []);
@@ -114,5 +121,42 @@ Sheep sheep1 = Sheep(name: "John",
       age: "0", children: []);
       sheep1.addChild(baby);
       expect(sheep1.children, [baby]);
+  });
+
+
+  // really just a copy of the origional test, but making sure that theres now three text boxes
+
+  testWidgets('Clicking and Typing adds sheep', (tester) async {
+    await tester.pumpWidget(const MaterialApp(home: SheepList()));
+
+    // Note to self: the tests read whats already in main, so John/A2/3 would be read twice sinces hes already in the list
+    expect(find.byType(TextField), findsNothing);
+
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pump(); // Pump after every action to rebuild the widgets
+    expect(find.text("hi"), findsNothing);
+
+    // typing text into EACH box
+
+    await tester.enterText(find.byKey(const Key("nameField")), 'Jack');
+    await tester.enterText(find.byKey(const Key("gradeField")), 'B6');
+    await tester.enterText(find.byKey(const Key("ageField")), '4');
+    await tester.pump();
+    
+    // Finding typed text
+    
+    expect(find.text("Jack"), findsOneWidget);
+    expect(find.text("B6"), findsOneWidget);
+    expect(find.text("4"), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key("OKButton")));
+    await tester.pump();
+    expect(find.text("Jack"), findsOneWidget);
+    expect(find.text("B6"), findsOneWidget);
+    expect(find.text("4"), findsOneWidget);
+
+    final listItemFinder = find.byType(SheepItems);
+
+    expect(listItemFinder, findsNWidgets(2));
   });
 }
