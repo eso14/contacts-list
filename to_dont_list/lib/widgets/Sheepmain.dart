@@ -98,7 +98,21 @@ class _SheepListState extends State<SheepList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Sheep Reposity")
+          title: Row(
+            children: [
+              // helps with spacing
+              Expanded(child: TextField(
+                onChanged: (search) => _filterSheep(search),
+                // allows for like hint text / icons
+                decoration: const InputDecoration(
+                  hintText: "Search. . .",
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.horizontal(left: Radius.zero))
+                ),
+              )
+              )
+            ],
+          )
         ),
         body: ListView(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
