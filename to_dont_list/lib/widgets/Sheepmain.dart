@@ -73,6 +73,7 @@ class _SheepListState extends State<SheepList> {
         _sheepSet.remove(sheep);
         sheeps.insert(0, sheep);
       }
+      _filterSheep(searchQuery);
     });
   }
 
@@ -80,6 +81,7 @@ class _SheepListState extends State<SheepList> {
     setState(() {
       print("Deleting item");
       sheeps.remove(sheep);
+      _filterSheep(searchQuery);
     });
   }
 
@@ -91,6 +93,7 @@ class _SheepListState extends State<SheepList> {
       nameController.clear();
       gradeController.clear();
       ageController.clear();
+      _filterSheep(searchQuery);
     });
   }
 
@@ -110,13 +113,28 @@ class _SheepListState extends State<SheepList> {
                   border: OutlineInputBorder(borderRadius: BorderRadius.horizontal(left: Radius.zero))
                 ),
               )
-              )
+              ),
+            const SizedBox(width: 4),
+            DropdownButton<String>(
+              value: searchCriteria,
+              items: const [
+                DropdownMenuItem(value: "name", child: Text("Name")),
+                DropdownMenuItem(value: "grade", child: Text("Grade")),
+                DropdownMenuItem(value: "age", child: Text("Age"),)
+              ], 
+              onChanged: (value) {
+                setState(() {
+                  // value! is saying that value will never be null at this point, removes nullability check
+                  searchCriteria = value!;
+                  _filterSheep(searchQuery);
+                });
+              })
             ],
           )
         ),
         body: ListView(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
-          children: sheeps.map((sheep) {
+          children: filteredSheep.map((sheep) {
             return SheepItems(
               sheep: sheep,
               remove: _sheepSet.contains(sheep),
