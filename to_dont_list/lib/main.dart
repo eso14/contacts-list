@@ -43,10 +43,10 @@ class _ToDoListState extends State<ToDoList> {
     });
   }
 
-  void _handleNewItem(String itemText, TextEditingController textController, double sliderValue) {
+  void _handleNewItem(String itemText, TextEditingController textController, double sliderValue, bool switchValue) {
     setState(() {
       print("Adding new item");
-      Book item = Book(name: itemText, isFiction: false, progress: sliderValue);
+      Book item = Book(name: itemText, isFiction: switchValue, progress: sliderValue);
       items.insert(0, item);
       textController.clear();
     });

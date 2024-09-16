@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 typedef ToDoListAddedCallback = Function(
-    String value, TextEditingController textConroller, double sliderValue);
+    String value, TextEditingController textConroller, double sliderValue, bool switchValue);
 
 class ToDoDialog extends StatefulWidget {
   const ToDoDialog({
@@ -24,13 +24,15 @@ class _ToDoDialogState extends State<ToDoDialog> {
       textStyle: const TextStyle(fontSize: 20), backgroundColor: Colors.red);
 
   String valueText = "";
-  double sliderValue = .0; 
+  double sliderValue = .0;
+  bool switchValue = false; 
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Item To Add'),
       content: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
       TextField(
         onChanged: (value) {
@@ -51,6 +53,25 @@ class _ToDoDialogState extends State<ToDoDialog> {
         });
     },
 ),
+ SwitchListTile( 
+  value: switchValue, 
+  onChanged: (bool value){
+    setState(() {
+              switchValue = value; //update value when sitch changed
+          });
+
+  },
+  title: RichText(
+ text: const TextSpan(
+ children: <TextSpan>[
+  TextSpan(text: 'Is your book ', style: TextStyle(color:Color.fromARGB(255, 0, 0, 0))),
+  TextSpan(text: 'Fiction', style: TextStyle(color:Color.fromARGB(255, 255, 0, 0))),
+  TextSpan(text: ' or ', style: TextStyle(color:Color.fromARGB(255, 0, 0, 0))),
+  TextSpan(text: 'Non-Fiction', style: TextStyle(color: Color.fromARGB(255, 0, 255, 0))),
+  TextSpan(text: ' ?', style: TextStyle(color:Color.fromARGB(255, 0, 0, 0)))
+],
+),
+))
         ],
       ),
       actions: <Widget>[
@@ -64,7 +85,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
               onPressed: value.text.isNotEmpty
                   ? () {
                       setState(() {
-                        widget.onListAdded(valueText, _inputController, sliderValue);
+                        widget.onListAdded(valueText, _inputController, sliderValue,switchValue);
                         Navigator.pop(context);
                       });
                     }

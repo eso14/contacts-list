@@ -51,7 +51,8 @@ class ToDoListItem extends StatelessWidget {
           : null,
       leading: CircularProgressIndicator(
         value: item.progress,
-        backgroundColor: Colors.black54
+        backgroundColor: Colors.black54,
+        color: item.isFiction == true ? Colors.red : Colors.green
         //child: Text(item.abbrev()),
       ),
       title: Text(
