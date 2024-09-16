@@ -7,5 +7,9 @@ This app can be useful as the basis for any repository storage system, which can
 
 Screenshots:
 
+![image](https://github.com/user-attachments/assets/0b2e8c34-ceb0-4600-8b7c-5c8c11d08c4e)
+
+![image](https://github.com/user-attachments/assets/400c868d-0ac1-43d4-a82a-22ef94aabb88)
+
 
 
