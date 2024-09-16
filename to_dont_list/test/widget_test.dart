@@ -100,12 +100,12 @@ Sheep sheep1 = Sheep(name: "John",
 
 
   await tester.tap(find.byType(DropdownButton<String>)); // Open the dropdown
-  await tester.pumpAndSettle(); // Wait for the dropdown to fully open
-  await tester.tap(find.text("Grade").first); // Tap "Grade"
+  await tester.pumpAndSettle();
+  await tester.tap(find.text("Grade").first);
   await tester.pump();
-  await tester.enterText(find.byType(TextField), 'B6'); // Enter 'B6' into the TextField
+  await tester.enterText(find.byType(TextField), 'B2');
   await tester.pump();
-  expect(find.text("B6"), findsOneWidget); // Jack has grade B6
+  expect(find.text("B2"), findsExactly(3));
   expect(find.text("John"), findsNothing);
 
   // Clear search
@@ -120,7 +120,7 @@ Sheep sheep1 = Sheep(name: "John",
   await tester.enterText(find.byType(TextField), '4');
   await tester.pump();
   expect(find.text("4"), findsExactly(2));
-  expect(find.text("Jack"), findsNothing);
+  expect(find.text("John"), findsNothing);
 });
 
 
