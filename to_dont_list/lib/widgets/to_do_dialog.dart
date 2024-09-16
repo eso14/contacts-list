@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 typedef ToDoListAddedCallback = Function(
-    String value, TextEditingController textConroller);
+    String value, TextEditingController textConroller, double sliderValue);
 
 class ToDoDialog extends StatefulWidget {
   const ToDoDialog({
@@ -24,12 +24,15 @@ class _ToDoDialogState extends State<ToDoDialog> {
       textStyle: const TextStyle(fontSize: 20), backgroundColor: Colors.red);
 
   String valueText = "";
+  double sliderValue = .0; 
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Item To Add'),
-      content: TextField(
+      content: Column(
+        children: [
+      TextField(
         onChanged: (value) {
           setState(() {
             valueText = value;
@@ -37,6 +40,18 @@ class _ToDoDialogState extends State<ToDoDialog> {
         },
         controller: _inputController,
         decoration: const InputDecoration(hintText: "type something here"),
+      ),
+      Slider(
+    min: 0, //add min and max
+    max: 1,
+    value: sliderValue,
+    onChanged: (double value) {  
+        setState(() {
+            sliderValue = value;
+        });
+    },
+),
+        ],
       ),
       actions: <Widget>[
         // https://stackoverflow.com/questions/52468987/how-to-turn-disabled-button-into-enabled-button-depending-on-conditions
@@ -49,7 +64,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
               onPressed: value.text.isNotEmpty
                   ? () {
                       setState(() {
-                        widget.onListAdded(valueText, _inputController);
+                        widget.onListAdded(valueText, _inputController, sliderValue);
                         Navigator.pop(context);
                       });
                     }
@@ -68,6 +83,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
             });
           },
         ),
+        
 
         
       ],
