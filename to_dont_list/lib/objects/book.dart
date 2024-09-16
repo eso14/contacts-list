@@ -6,4 +6,7 @@ class Book {
   void changeProgress( double newProgress){
     progress = newProgress;
   }
+  void increaseProgress(){
+    progress = progress + .02;
+  }
 }

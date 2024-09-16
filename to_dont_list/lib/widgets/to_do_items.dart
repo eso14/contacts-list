@@ -4,9 +4,10 @@ import 'package:to_dont_list/objects/book.dart';
 typedef ToDoListChangedCallback = Function(Book item, bool completed);
 typedef ToDoListRemovedCallback = Function(Book item);
 
-class ToDoListItem extends StatelessWidget {
-  ToDoListItem(
-      {required this.item,
+
+class BookItem extends StatefulWidget {
+  BookItem(
+  {required this.item,
       required this.completed,
       required this.onListChanged,
       required this.onDeleteItem})
@@ -18,19 +19,24 @@ class ToDoListItem extends StatelessWidget {
   final ToDoListChangedCallback onListChanged;
   final ToDoListRemovedCallback onDeleteItem;
 
+  @override
+  State<BookItem> createState() => _BookItemState();
+}
+
+class _BookItemState extends State<BookItem> {
   Color _getColor(BuildContext context) {
     // The theme depends on the BuildContext because different
     // parts of the tree can have different themes.
     // The BuildContext indicates where the build is
     // taking place and therefore which theme to use.
 
-    return completed //
+    return widget.completed //
         ? Colors.black
         : Theme.of(context).primaryColor;
   }
 
   TextStyle? _getTextStyle(BuildContext context) {
-    if (!completed) return null;
+    if (!widget.completed) return null;
 
     return const TextStyle(
       color: Colors.black54,
@@ -42,23 +48,28 @@ class ToDoListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        onListChanged(item, completed);
+        setState(() {
+          widget.item.increaseProgress();
+        });
+        
       },
-      onLongPress: completed
+      onLongPress: widget.completed
           ? () {
-              onDeleteItem(item);
+              setState(() {
+          widget.onDeleteItem(widget.item);
+        });
             }
           : null,
       leading: CircularProgressIndicator(
-        value: item.progress,
+        value: widget.item.progress,
         backgroundColor: Colors.black54,
-        color: item.isFiction == true ? Colors.red : Colors.green
+        color: widget.item.isFiction == true ? Colors.red : Colors.green
         //child: Text(item.abbrev()),
       ),
       title: Text(
-        item.name,
+        widget.item.name,
         style: _getTextStyle(context),
       ),
     );
   }
-}
+  }

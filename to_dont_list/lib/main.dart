@@ -12,7 +12,7 @@ class ToDoList extends StatefulWidget {
 }
 
 class _ToDoListState extends State<ToDoList> {
-  final List<Book> items = [ Book(name: "All the president's Men", isFiction: false, progress: 0.5)];
+  final List<Book> items = [ Book(name: "All the President's Men", isFiction: false, progress: 0.5)];
   final _itemSet = <Book>{};
 
   void _handleListChanged(Book item, bool completed) {
@@ -43,7 +43,7 @@ class _ToDoListState extends State<ToDoList> {
     });
   }
 
-  void _handleNewItem(String itemText, TextEditingController textController, double sliderValue, bool switchValue) {
+   void _handleNewItem(String itemText, TextEditingController textController, double sliderValue, bool switchValue) {
     setState(() {
       print("Adding new item");
       Book item = Book(name: itemText, isFiction: switchValue, progress: sliderValue);
@@ -56,12 +56,12 @@ class _ToDoListState extends State<ToDoList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('To Do List'),
+          title: const Text('Book List'),
         ),
         body: ListView(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           children: items.map((item) {
-            return ToDoListItem(
+            return BookItem(
               item: item,
               completed: _itemSet.contains(item),
               onListChanged: _handleListChanged,
