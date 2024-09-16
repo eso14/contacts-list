@@ -56,7 +56,7 @@ Sheep sheep1 = Sheep(name: "John",
     await tester.pump(); // Pump after every action to rebuild the widgets
     expect(find.text("hi"), findsNothing);
 
-    // typing text into EACH box
+    // Typing text into EACH box
 
     await tester.enterText(find.byKey(const Key("nameField")), 'Jack');
     await tester.enterText(find.byKey(const Key("gradeField")), 'B6');
@@ -72,15 +72,76 @@ Sheep sheep1 = Sheep(name: "John",
     await tester.tap(find.byKey(const Key("OKButton")));
     await tester.pump();
     expect(find.text("Jack"), findsOneWidget);
-    // the reason we look for two is because of the grade in the icon, theres two things of B6
+    // The reason we look for two is because of the grade in the icon, theres two things of B6
     expect(find.text("B6"), findsExactly(2));
     expect(find.text("4"), findsOneWidget);
 
     final listItemFinder = find.byType(SheepItems);
 
-    expect(listItemFinder, findsNWidgets(2));
+    expect(listItemFinder, findsNWidgets(6));
   });
 
+
+  testWidgets("Search bar typing and dropdown", (tester) async {
+    // Test list of sheep
+    final List<Sheep> testSheepList = [
+      Sheep(name: "John", grade: "A2", age: "3", children: []),
+      Sheep(name: "Jack", grade: "B6", age: "4", children: []),
+      Sheep(name: "Jill", grade: "C3", age: "2", children: []),
+    ];
+
+    // Helps to build widgit for testing
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: SheepList(),
+        ),
+      ),
+    );
+
+    // Making sure sheep are present
+    expect(find.text("John"), findsOneWidget);
+    expect(find.text("Jack"), findsOneWidget);
+    expect(find.text("Jill"), findsOneWidget);
+
+    // Test 1: Filter by name 'Jack'
+    await tester.enterText(find.byType(TextField), 'Jack');
+    await tester.pump();
+
+    // Verify only Jack appears in the list
+    expect(find.text("John"), findsNothing);
+    expect(find.text("Jack"), findsOneWidget);
+    expect(find.text("Jill"), findsNothing);
+
+    // Test 2: Clear the search and filter by grade 'C3'
+    await tester.enterText(find.byType(TextField), ''); // Clears search
+    await tester.pump();
+    await tester.tap(find.byType(DropdownButton)); // Open the dropdown menu
+    await tester.tap(find.text('Grade').last); // Selects "Grade"
+    await tester.pump();
+    await tester.enterText(find.byType(TextField), 'C3'); // Enter grade
+    await tester.pump();
+
+    // Verify only Jill appears in the list with grade C3
+    expect(find.text("John"), findsNothing);
+    expect(find.text("Jack"), findsNothing);
+    expect(find.text("Jill"), findsOneWidget);
+
+    // Test 3: Clear the search and filter by age '3'
+    await tester.enterText(find.byType(TextField), '');
+    await tester.pump();
+    await tester.tap(find.byType(DropdownButton));
+    await tester.tap(find.text('Age').last); // Select "Age" as search criteria
+    await tester.pump();
+    await tester.enterText(find.byType(TextField), '3'); // Enter age
+    await tester.pump();
+
+    // Verify only John appears in the list with age 3
+    expect(find.text("John"), findsOneWidget);
+    expect(find.text("Jack"), findsNothing);
+    expect(find.text("Jill"), findsNothing);
+
+  });
 
 
 
