@@ -16,7 +16,11 @@ class SheepList extends StatefulWidget {
 }
 
 class _SheepListState extends State<SheepList> {
-  final List<Sheep> sheeps = [Sheep(name: "John", grade: "A2", age: "3", children: [] )];
+  final List<Sheep> sheeps = [Sheep(name: "John", grade: "A2", age: "3", children: []), 
+  Sheep(name: "Jack", grade: "B2", age: "4", children: []),
+  Sheep(name: "Billy", grade: "A1", age: "2", children: []),
+  Sheep(name: "Susan", grade: "C3", age: "3", children: []),
+  Sheep(name: "Astrid", grade: "A2", age: "1", children: [])];
   final _sheepSet = <Sheep>{};
   List<Sheep> filteredSheep = [];
   // for searching stuff
