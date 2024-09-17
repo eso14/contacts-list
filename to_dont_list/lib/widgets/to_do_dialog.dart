@@ -65,9 +65,9 @@ class _ToDoDialogState extends State<ToDoDialog> {
  text: const TextSpan(
  children: <TextSpan>[
   TextSpan(text: 'Is your book ', style: TextStyle(color:Color.fromARGB(255, 0, 0, 0))),
-  TextSpan(text: 'Fiction', style: TextStyle(color:Color.fromARGB(255, 255, 0, 0))),
+  TextSpan(text: 'Fiction', style: TextStyle(color:Colors.red )),
   TextSpan(text: ' or ', style: TextStyle(color:Color.fromARGB(255, 0, 0, 0))),
-  TextSpan(text: 'Non-Fiction', style: TextStyle(color: Color.fromARGB(255, 0, 255, 0))),
+  TextSpan(text: 'Non-Fiction', style: TextStyle(color: Colors.green)),
   TextSpan(text: ' ?', style: TextStyle(color:Color.fromARGB(255, 0, 0, 0)))
 ],
 ),
@@ -85,7 +85,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
               onPressed: value.text.isNotEmpty
                   ? () {
                       setState(() {
-                        widget.onListAdded(valueText, _inputController, sliderValue,switchValue);
+                        widget.onListAdded(valueText, _inputController, sliderValue,!switchValue);
                         Navigator.pop(context);
                       });
                     }
