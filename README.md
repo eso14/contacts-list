@@ -7,4 +7,5 @@ This app allows the user to add a book, select if it is non-fiction or fiction, 
 ## Why this app is useful
 The app is a simple way for users to keep track of their books.
 ## Screenshots
-
+(/pictures/Screen.png)
+(/pictures/Screen2.png)
