@@ -45,6 +45,17 @@ class SheepItems extends StatelessWidget {
     );
   }
 
+List<DropdownMenuItem<String>> get dropdownItems {
+List<DropdownMenuItem<String>> menuItems = [
+DropdownMenuItem(child: Text("Name"), value: sheep.name),
+DropdownMenuItem(child: Text("Grade"), value: sheep.grade),
+DropdownMenuItem(child: Text("Age"), value: sheep.age),
+];
+return menuItems;
+}
+
+
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -57,10 +68,12 @@ class SheepItems extends StatelessWidget {
         backgroundColor: _getColor(context),
         child: Text(sheep.grade),
       ),
-      title: Row ( children: [const Text("Name:"), space4, Text(sheep.name), space8, 
+      title: Row(children:[const Text("Name:"), space4, Text(sheep.name),]),
+      /*title: Row ( children: [const Text("Name:"), space4, Text(sheep.name), space8, 
       const Text('Grade:'), space4, Text(sheep.grade), space8, 
       const Text("Age:"), space4, Text(sheep.age), space8,]
-      ),
+      ),*/
+      trailing: DropdownButton(value: sheep.name, items: dropdownItems, onChanged: null),
     );
   }
 }
