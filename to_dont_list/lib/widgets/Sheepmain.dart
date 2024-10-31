@@ -142,6 +142,7 @@ class _SheepListState extends State<SheepList> {
             return SheepItems(
               sheep: sheep,
               remove: _sheepSet.contains(sheep),
+              isExpanded: false,
               onListChanged: _handleListChanged,
               onDeleteItem: _handleDeleteItem,
             );
