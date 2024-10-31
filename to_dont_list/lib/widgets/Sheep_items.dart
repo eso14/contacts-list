@@ -67,8 +67,7 @@ DropdownMenuItem(child: Text("Age"), value: widget.sheep.age),
 return menuItems;
 }
 
-
-
+      
 
 
   @override
@@ -76,6 +75,7 @@ return menuItems;
     return ListTile(
       onLongPress: widget.remove
           ? () {
+            print("onLongPress");
               widget.onDeleteItem(widget.sheep);
             }
           : null,
@@ -83,36 +83,15 @@ return menuItems;
         backgroundColor: _getColor(context),
         child: Text(widget.sheep.grade),
       ),
-      title: ExpansionPanelList(
-        expansionCallback: (int index, bool isExpanded) {
-        setState(() {
-          _sheeps[index].isExpanded = !isExpanded;
-        });},
-         children: _sheeps.map<ExpansionPanel>((Sheep sheep) {
-        return ExpansionPanel(
-          headerBuilder: (BuildContext context, bool isExpanded) {
-            return ListTile(
-              title: Text(widget.sheep.name),
-            );
-          },
-          body: ListTile(
-            title: Row (children: [
+      title: Row(children:[const Text("Name:"), space4, Text(widget.sheep.name),]),
+      subtitle: widget.isExpanded ? Row ( children: [
       const Text('Grade:'), space4, Text(widget.sheep.grade), space8, 
-      const Text("Age:"), space4, Text(widget.sheep.age), space8,],),),
-          isExpanded: widget.isExpanded,
-        );
-      }).toList(),
-    ));
+      const Text("Age:"), space4, Text(widget.sheep.age), space8,],) : null,
+      trailing: IconButton(
+        onPressed: ()=> setState(() => widget.isExpanded = !widget.isExpanded) , 
+        icon: widget.isExpanded ? Icon(Icons.arrow_upward): Icon(Icons.arrow_downward)),);
   }
       
-      /*title: Row(children:[const Text("Name:"), space4, Text(widget.sheep.name),]),
-      subtitle: Row ( children: [
-      const Text('Grade:'), space4, Text(widget.sheep.grade), space8, 
-      const Text("Age:"), space4, Text(widget.sheep.age), space8,],),
-      trailing: IconButton(
-        onPressed: ()=> setState(() => widget.opened = !widget.opened) , 
-        icon: if widget.opened () icon),*/
-      //icon button with true false for icon display and on pressed displays subtitle
-
+   
   }
 
