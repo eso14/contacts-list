@@ -13,10 +13,17 @@ class ToDoList extends StatefulWidget {
 }
 
 class _ToDoListState extends State<ToDoList> {
-  final List<Contact> items = [const Contact(first_name: "Emergency", last_name: "Services", number: "911")];
+  final List<Contact> items = [
+    Contact(first_name: "Emergency", last_name: "Services", number: "911")
+  ];
   final _itemSet = <Contact>{};
 
-  void _handleListChanged(Contact item, bool completed) {
+  void _handleContactChanged(
+      Contact contact,
+      TextEditingController first_controller,
+      TextEditingController last_controller,
+      TextEditingController number_controller) {
+    print("here");
     setState(() {
       // When a user changes what's in the list, you need
       // to change _itemSet inside a setState call to
@@ -24,16 +31,10 @@ class _ToDoListState extends State<ToDoList> {
       // The framework then calls build, below,
       // which updates the visual appearance of the app.
 
-      items.remove(item);
-      if (!completed) {
-        print("Completing");
-        _itemSet.add(item);
-        items.add(item);
-      } else {
-        print("Making Undone");
-        _itemSet.remove(item);
-        items.insert(0, item);
-      }
+      contact.first_name = first_controller.text;
+      contact.last_name = last_controller.text;
+      contact.number = number_controller.text;
+      print("altered");
     });
   }
 
@@ -45,16 +46,19 @@ class _ToDoListState extends State<ToDoList> {
     });
   }
 
-  void _handleNewItem(TextEditingController textController, TextEditingController txtcontroller, TextEditingController txtcontrol) {
+  void _handleNewItem(TextEditingController textController,
+      TextEditingController txtcontroller, TextEditingController txtcontrol) {
     setState(() {
       print("Adding new item");
-      Contact item = Contact(first_name: textController.text, last_name: txtcontroller.text, number: txtcontrol.text);
+      Contact item = Contact(
+          first_name: textController.text,
+          last_name: txtcontroller.text,
+          number: txtcontrol.text);
       //_itemSet.add(item);
       items.insert(0, item);
       textController.clear();
       txtcontroller.clear();
       txtcontrol.clear();
-      
     });
   }
 
@@ -70,14 +74,14 @@ class _ToDoListState extends State<ToDoList> {
             return ContactListItems(
               item: item,
               favorited: _itemSet.contains(item),
-              onListChanged: _handleListChanged,
+              onItemAltered: _handleContactChanged,
               onDeleteItem: _handleDeleteItem,
             );
           }).toList(),
         ),
         floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.add),
-            key: Key('Add'), 
+            key: Key('Add'),
             onPressed: () {
               showDialog(
                   context: context,
