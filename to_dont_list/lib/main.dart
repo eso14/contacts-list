@@ -13,7 +13,7 @@ class ToDoList extends StatefulWidget {
 }
 
 class _ToDoListState extends State<ToDoList> {
-  final List<Contact> items = [const Contact(first_name: "Emergency", last_name: "Services", number: "911")];
+  final List<Contact> items = [ Contact(first_name: "Emergency", last_name: "Services", number: "911", isFavorite: false)];
   final _itemSet = <Contact>{};
 
   void _handleListChanged(Contact item, bool completed) {
@@ -48,7 +48,7 @@ class _ToDoListState extends State<ToDoList> {
   void _handleNewItem(TextEditingController textController, TextEditingController txtcontroller, TextEditingController txtcontrol) {
     setState(() {
       print("Adding new item");
-      Contact item = Contact(first_name: textController.text, last_name: txtcontroller.text, number: txtcontrol.text);
+      Contact item = Contact(first_name: textController.text, last_name: txtcontroller.text, number: txtcontrol.text, isFavorite: false);
       //_itemSet.add(item);
       items.insert(0, item);
       textController.clear();
@@ -61,10 +61,42 @@ class _ToDoListState extends State<ToDoList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: DefaultTabController(length: 2, child: Scaffold(
         appBar: AppBar(
           title: const Text('Contacts'),
+          bottom: const TabBar(
+          tabs:[
+            Tab(text: "All Contacts"),
+            Tab(text: 'Favorites')
+          ]),
         ),
-        body: ListView(
+        body: TabBarView(children:[
+        _buildContactList(context, true),
+        _buildContactList(context, false)
+        ])
+      )),
+        floatingActionButton: FloatingActionButton(
+            key: const Key('Add'), 
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (_) {
+                    return ToDoDialog(onListAdded: _handleNewItem);
+                  });
+            },
+            child: const Icon(Icons.add)));
+  }
+  Widget _buildContactList(BuildContext context, bool onlyFavorite){
+  List<Contact> favorites = [];
+  int i = 0;
+  while(i < items.length){
+    if(items.elementAt(i).isFavorite){
+      favorites.add(items.elementAt(i));
+    }
+    i++;
+  }
+  if (onlyFavorite){
+   return ListView(
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           children: items.map((item) {
             return ContactListItems(
@@ -74,20 +106,23 @@ class _ToDoListState extends State<ToDoList> {
               onDeleteItem: _handleDeleteItem,
             );
           }).toList(),
-        ),
-        floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.add),
-            key: Key('Add'), 
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (_) {
-                    return ToDoDialog(onListAdded: _handleNewItem);
-                  });
-            }));
-  }
+        );
 }
-
+else{
+  return ListView(
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          children: favorites.map((item) {
+            return ContactListItems(
+              item: item,
+              favorited: _itemSet.contains(item),
+              onListChanged: _handleListChanged,
+              onDeleteItem: _handleDeleteItem,
+            );
+          }).toList(),
+        );
+}
+}
+}
 void main() {
   runApp(const MaterialApp(
     title: 'Contacts',
