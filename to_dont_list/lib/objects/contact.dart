@@ -1,9 +1,10 @@
 class Contact{
-  const Contact({required this.first_name, required this.last_name, required this.number});
+   Contact({required this.first_name, required this.last_name, required this.number, required this.isFavorite});
   //constructor
 final String first_name;
 final String last_name;
 final String number;
+bool isFavorite;
 
   //methods
   String intials(){
@@ -14,8 +15,9 @@ final String number;
   
   }
   String name(){
-    return (first_name + " " + last_name);
+    return ("$first_name $last_name");
   }
+  
 
 
   // stl-stateless widget , stf- stateful widget, wdiget.(connection to state)

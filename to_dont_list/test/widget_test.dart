@@ -10,12 +10,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:to_dont_list/main.dart';
 import 'package:to_dont_list/objects/contact.dart';
-import 'package:to_dont_list/objects/item.dart';
 import 'package:to_dont_list/widgets/to_do_items.dart';
 
 void main() {
   test('Contact abbreviation should be initials', () {
-    const item = Contact(first_name: "Emergency", last_name: "Services", number: "911");
+    var item = Contact(first_name: "Emergency", last_name: "Services", number: "911", isFavorite: false);
     expect(item.intials(), "ES");
   });
 
@@ -26,7 +25,7 @@ void main() {
     await tester.pumpWidget(MaterialApp(
         home: Scaffold(
             body: ContactListItems(
-                item: const Contact(first_name: "test", last_name:"test last", number: "01" ),
+                item: Contact(first_name: "test", last_name:"test last", number: "01", isFavorite: false ),
                 favorited: true,
                 onListChanged: (Contact item, bool favorited) {},
                 onDeleteItem: (Contact item) {}))));
@@ -54,7 +53,7 @@ void main() {
     await tester.pumpWidget(MaterialApp(
         home: Scaffold(
             body: ContactListItems(
-                item: const Contact(first_name: "test", last_name:"test last", number: "01" ),
+                item: Contact(first_name: "test", last_name:"test last", number: "01", isFavorite: false ),
                 favorited: true,
                 onListChanged: (Contact item, bool favorited) {},
                 onDeleteItem: (Contact item) {}))));
