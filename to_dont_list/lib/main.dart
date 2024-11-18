@@ -23,7 +23,6 @@ class _ToDoListState extends State<ToDoList> {
       TextEditingController first_controller,
       TextEditingController last_controller,
       TextEditingController number_controller) {
-    print("here");
     setState(() {
       // When a user changes what's in the list, you need
       // to change _itemSet inside a setState call to
@@ -34,7 +33,6 @@ class _ToDoListState extends State<ToDoList> {
       contact.first_name = first_controller.text;
       contact.last_name = last_controller.text;
       contact.number = number_controller.text;
-      print("altered");
     });
   }
 

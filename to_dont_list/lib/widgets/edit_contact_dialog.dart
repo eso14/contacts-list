@@ -89,10 +89,8 @@ class EditContactDialogState extends State<EditContactDialog> {
               style: yesStyle,
               onPressed: value.text.isNotEmpty
                   ? () {
-                      print("reached this spot");
                       widget.onItemAltered(widget.contact, _firstController,
                           _lastController, _numberController);
-                      print("Reached 2nd spot");
                       Navigator.pop(context);
                     }
                   : null,
