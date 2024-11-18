@@ -1,33 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:to_dont_list/objects/contact.dart';
 import 'package:to_dont_list/objects/item.dart';
+import 'package:to_dont_list/widgets/edit_contact_dialog.dart';
+import 'package:to_dont_list/widgets/to_do_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:to_dont_list/main.dart';
 
-typedef ToDoListChangedCallback = Function(Contact item, bool favorited);
+typedef OnItemAltered = Function(
+    Contact contact,
+    TextEditingController first_controller,
+    TextEditingController last_controller,
+    TextEditingController number_controller);
 typedef ToDoListRemovedCallback = Function(Contact item);
-
 
 class ContactListItems extends StatefulWidget {
   ContactListItems(
       {required this.item,
       required this.favorited,
-      required this.onListChanged,
+      required this.onItemAltered,
       required this.onDeleteItem})
       : super(key: ObjectKey(item));
 
   final Contact item;
   bool favorited;
 
-  final ToDoListChangedCallback onListChanged;
+  final OnItemAltered onItemAltered;
   final ToDoListRemovedCallback onDeleteItem;
-
 
   @override
   State<ContactListItems> createState() => _ContactListItemsState();
-  
 }
-  
 
 class _ContactListItemsState extends State<ContactListItems> {
   Color _getColor(BuildContext context) {
@@ -39,15 +41,16 @@ class _ContactListItemsState extends State<ContactListItems> {
     return widget.favorited //
         ? Colors.deepPurple
         : Theme.of(context).primaryColor;
-    
   }
 
   TextStyle? _getTextStyle(BuildContext context) {
-     return null;
+    return null;
   }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
+
       onTap: () {},
       onLongPress:
            () {
@@ -85,5 +88,6 @@ class _ContactListItemsState extends State<ContactListItems> {
       subtitle: Text(
         widget.item.get_number(),)
     );
+
   }
 }
